@@ -1,0 +1,7 @@
+# vendor ignore
+/src/backends/vendor/*
+!/src/backends/vendor/.keep
+
+# binary ignore
+/src/backends/bin/*
+!/src/backends/bin/.keep

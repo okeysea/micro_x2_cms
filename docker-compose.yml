@@ -1,0 +1,22 @@
+version: '3.7'
+services:
+  testserver:
+    build:
+      context: .
+      dockerfile: ./containers/goexecute/Dockerfile
+    command: /app/bin/server
+    ports:
+      - "19003:19003" 
+    container_name: testserver
+
+  testclient:
+    build:
+      context: .
+      dockerfile: ./containers/goexecute/Dockerfile
+    command: /app/bin/client
+    depends_on:
+      - testserver
+    environment:
+      - no_proxy=testserver
+
+
