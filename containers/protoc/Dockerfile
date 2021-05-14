@@ -18,7 +18,10 @@ RUN set -eux && \
       ./configure && \
       make -j 3 && \
       make install && \
-      go get -u github.com/golang/protobuf/protoc-gen-go && \
+      # go get -u github.com/golang/protobuf/protoc-gen-go && \
+      # API v2 対応 &&\
+      go get -u google.golang.org/protobuf/cmd/protoc-gen-go@v1.26 &&\
+      go get -u google.golang.org/grpc/cmd/protoc-gen-go-grpc@v1.1 &&\
       go get -u github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc && \
       go get -u github.com/grpc-ecosystem/grpc-gateway/protoc-gen-grpc-gateway && \
       go get -u github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger
@@ -32,3 +35,5 @@ COPY --from=builder /usr/lib /usr/lib
 COPY --from=builder /go/bin /go/bin
 
 COPY ./proto /go/proto
+
+WORKDIR /go

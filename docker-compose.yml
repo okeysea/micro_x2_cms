@@ -19,4 +19,15 @@ services:
     environment:
       - no_proxy=testserver
 
+  bff:
+    build:
+      context: .
+      dockerfile: ./containers/nodejs/Dockerfile
+    depends_on:
+      - testserver
+    environment:
+      - no_proxy=testserver
+    volumes:
+      - ./src/bff:/app
+
 

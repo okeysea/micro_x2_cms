@@ -1,0 +1,35 @@
+{
+  "name": "micro_x2_cms_bff",
+  "version": "1.0.0",
+  "description": "backend for frontend.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npm run build:live",
+    "build": "tsc -p .",
+    "build:live": "nodemon --watch '**/*.ts' --exec 'ts-node' tssrc/app.ts"
+  },
+  "author": "okeysea",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/express": "^4.17.11",
+    "@types/node": "^15.0.2",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.2.2",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "css-loader": "^5.2.4",
+    "html-webpack-plugin": "^5.3.1",
+    "nodemon": "^2.0.7",
+    "sass": "^1.32.12",
+    "sass-loader": "^11.1.0",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.2.4",
+    "webpack": "^5.37.0",
+    "webpack-cli": "^4.7.0",
+    "webpack-dev-server": "^3.11.2"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
