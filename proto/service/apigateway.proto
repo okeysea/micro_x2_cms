@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+option go_package = "okeysea/micro_x2_cms/api/apigwproto";
+
+import "common/health.proto";
+
+package microx2cms.apigwproto;
+
+service APIGateway {
+  rpc GetHealth ( common.QueryHealth ) returns ( common.ResponseHealth ) {}
+}

@@ -67,9 +67,16 @@
     /* Advanced Options */
     "resolveJsonModule": true,                      /* Include modules imported with '.json' extension */
     "skipLibCheck": true,                           /* Skip type checking of declaration files. */
-    "forceConsistentCasingInFileNames": true        /* Disallow inconsistently-cased references to the same file. */
-  },
+    "forceConsistentCasingInFileNames": true,       /* Disallow inconsistently-cased references to the same file. */
 
+    "baseUrl": "./tssrc",
+    "paths": {
+      "@app/*": ["app/*"],
+      "@config/*": ["config/*"],
+      "@api/*": ["app/api/*"],
+      "@proto/*": ["app/proto/*"]
+    },
+  },
   "include": [
     "tssrc/**/*"
   ]

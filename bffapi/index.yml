@@ -3,8 +3,120 @@ openapi: "3.0.2"
 info:
   $ref: './info/index.yml'
 servers:
-  - url: http://petstore.swagger.io/v1
+  - url: http://petstore.swagger.io/api
 paths:
+  /auth:
+    get:
+      security: []
+      summary: Obtain an guest AccessToken
+      description: 
+        AccessTokenの取得とHealthcheckを除くすべてのAPIにはAccessTokenが必要。
+        ゲストは、閲覧のみ許可される。
+      operationId: createGuestAccessToken
+      tags:
+        - auth
+      responses:
+        '201':
+          description: AccessToken Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AccessToken"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    post:
+      security: []
+      summary: Obtain an authenticated AccessToken
+      operationId: createAccessToken
+      tags:
+        - auth
+      requestBody:
+        description: Authentication inform
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/AuthForm"
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/AuthForm"
+      responses:
+        '201':
+          description: AccessToken created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AccessToken"
+        '400':
+          description: Bad combinate an authentication inform
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /healthcheck:
+    get:
+      security: []
+      summary: Healthcheck state of backend services
+      operationId: helthcheck
+      tags:
+        - helthcheck
+      responses:
+        '200':
+          description: All services healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Healthcheck"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /users/:
+    get:
+      summary: List all users
+      operationId: listUsers
+      tags:
+        - users
+      parameters:
+        - name: limit
+          in: query
+          description: How many items to return at one time (max 100)
+          required: false
+          schema:
+            type: integer
+            format: int32
+      responses:
+        '200':
+          description: A paged array of users
+          headers:
+            x-next:
+              description: A link to the next page of responses
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Users"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
   /pets:
     get:
       summary: List all pets!
@@ -78,7 +190,32 @@ paths:
               schema:
                 $ref: "#/components/schemas/Error"
 components:
+  securitySchemes:
+    AccessToken:
+      type: http
+      scheme: bearer
+      description: Credentials or access token for API
+
   schemas:
+    AccessToken:
+      type: object
+      required:
+        - accesstoken
+      properties:
+        accesstoken:
+          type: string
+
+    AuthForm:
+      type: object
+      required:
+        - auth_id
+        - auth_password
+      properties:
+        auth_id:
+          type: string
+        auth_password:
+          type: string
+
     Healthcheck:
       type: object
       required:
@@ -86,6 +223,21 @@ components:
       properties:
         response:
           type: string
+    User:
+      type: object
+      required:
+        - id
+        - name
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+    Users:
+      type: array
+      items:
+        $ref: "#/components/schemas/User"
+
     Pet:
       type: object
       required:
@@ -103,6 +255,7 @@ components:
       type: array
       items:
         $ref: "#/components/schemas/Pet"
+
     Error:
       type: object
       required:
@@ -114,3 +267,5 @@ components:
           format: int32
         message:
           type: string
+security:
+  - AccessToken: []

@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option go_package = "okeysea/micro_x2_cms/testproto";
+option go_package = "okeysea/micro_x2_cms/api/testproto";
 
 package test;
 

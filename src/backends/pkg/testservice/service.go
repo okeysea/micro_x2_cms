@@ -8,6 +8,7 @@ import (
 )
 
 type MyTestService struct {
+  pb.UnimplementedTestServer
 }
 
 func (s *MyTestService) GetMyTest(ctx context.Context, message *pb.GetMyTestMessage) (*pb.MyTestResponse, error) {

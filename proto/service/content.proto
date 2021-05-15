@@ -1,13 +1,16 @@
 syntax = "proto3";
 
-option go_package = "okeysea/micro_x2_cms/contentproto";
+option go_package = "okeysea/micro_x2_cms/api/contentproto";
 
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/duration.proto";
 
-package contentproto;
+import "common/health.proto";
+
+package microx2cms.contentproto;
 
 service Content {
+  rpc GetHealth ( common.QueryHealth ) returns ( common.ResponseHealth ) {}
   rpc GetContent ( QueryContent ) returns ( ContentResponse ) {}
 }
 
