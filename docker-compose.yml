@@ -1,0 +1,50 @@
+version: '3.7'
+services:
+  testserver:
+    build:
+      context: .
+      dockerfile: ./containers/goexecute/Dockerfile
+    command: /app/bin/server
+    ports:
+      - "19003:19003" 
+    container_name: testserver
+
+  testclient:
+    build:
+      context: .
+      dockerfile: ./containers/goexecute/Dockerfile
+    command: /app/bin/client
+    depends_on:
+      - testserver
+    environment:
+      - no_proxy=testserver
+
+  apigwsrv:
+    build:
+      context: .
+      dockerfile: ./containers/goexecute/Dockerfile
+    command: /app/bin/apigwsrv
+    ports:
+      - "10001:10001" 
+
+  # api-gateway:
+  #   build:
+  #     context: .
+  #     dockerfile: ./containers/doexecute/Dockerfile
+  #   command: /app/bin/api_gateway
+
+  bff:
+    build:
+      context: .
+      dockerfile: ./containers/nodejs/Dockerfile
+    command: npm run build:live
+    ports:
+      - "4000:4000" 
+    depends_on:
+      - testserver
+    environment:
+      - no_proxy=testserver,apigwsrv
+    volumes:
+      - ./src/bff:/app
+      - ./proto:/app/proto
+

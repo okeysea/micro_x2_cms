@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+option go_package = "okeysea/micro_x2_cms/api/contentproto";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/duration.proto";
+
+import "common/health.proto";
+
+package microx2cms.contentproto;
+
+service Content {
+  rpc GetHealth ( common.QueryHealth ) returns ( common.ResponseHealth ) {}
+  rpc GetContent ( QueryContent ) returns ( ContentResponse ) {}
+}
+
+message QueryContent {
+  string content_id = 1;
+}
+
+message UpdateContent {
+  QueryContent query = 1;
+  string title = 2;
+  string body = 3;
+}
+
+message ContentResponse {
+  // Content ID
+  string content_id = 1;
+
+  // 作成日時
+  google.protobuf.Timestamp created_at = 2;
+
+  // 更新日時
+  google.protobuf.Timestamp updated_at = 3;
+
+  // クエリ日時
+  google.protobuf.Timestamp queryed_at = 4;
+
+  // タイトル
+  string title = 5;
+
+  // 内容
+  string body = 6;
+}

@@ -1,0 +1,41 @@
+version: '3.7'
+services:
+  apimock:
+    image: danielgtaylor/apisprout
+    ports:
+      - 8010:8000
+    volumes:
+      - ./bffapi/merged.yml:/merged.yml
+    entrypoint: /usr/local/bin/apisprout /merged.yml --watch
+
+  swagger-ui:
+    image: swaggerapi/swagger-ui
+    ports:
+      - 8011:8080
+    volumes:
+      - ./bffapi/merged.yml:/usr/share/nginx/html/merged.yml
+    environment:
+      API_URL: merged.yml
+
+  redoc:
+    image: redocly/redoc
+    ports:
+      - 8012:80
+    volumes:
+      - ./bffapi/merged.yml:/usr/share/nginx/html/merged.yml
+    environment:
+      SPEC_URL: merged.yml
+
+  redoc-cli:
+    build: ./containers/openapi/redoc-cli
+    volumes:
+      - ./bffapi:/data
+
+  swagger-merger:
+    build: ./containers/openapi/swagger-merger
+    volumes:
+      - ./containers/openapi/swagger-merger/watch.js:/watch.js
+      - ./bffapi:/data
+    environment:
+      NODE_PATH: /usr/local/lib/node_modules
+    entrypoint: node /watch

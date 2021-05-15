@@ -1,0 +1,8 @@
+version: '3.7'
+services:
+  gocompiler:
+    build:
+      context: .
+      dockerfile: ./containers/gocompiler/Dockerfile
+    volumes:
+      - ./src/backends:/app

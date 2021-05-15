@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+option go_package = "okeysea/micro_x2_cms/api/models";
+
+package microx2cms.models;
+
+message User {
+  string id   = 1;
+  string name = 2;
+  string age  = 3;
+}
+
+message QueryUser {
+  string id   = 1;
+}
+
+message ResponseHealth {
+  string pong = 1;
+}

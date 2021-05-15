@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+option go_package = "okeysea/micro_x2_cms/api/testproto";
+
+package test;
+
+service Test {
+  rpc GetMyTest (GetMyTestMessage) returns (MyTestResponse) {}
+}
+
+message GetMyTestMessage {
+  string target_test = 1;
+}
+
+message MyTestResponse {
+  string name = 1;
+  string kind = 2;
+}

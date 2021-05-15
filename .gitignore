@@ -1,0 +1,11 @@
+#node_modules ignore
+node_modules/
+!node_modules/.keep
+
+# vendor ignore
+/src/backends/vendor/*
+!/src/backends/vendor/.keep
+
+# binary ignore
+/src/backends/bin/*
+!/src/backends/bin/.keep
