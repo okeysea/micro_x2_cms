@@ -6,3 +6,4 @@ services:
       dockerfile: ./containers/gocompiler/Dockerfile
     volumes:
       - ./src/backends:/app
+      - ./src/backends/vendor_bin:/go/bin

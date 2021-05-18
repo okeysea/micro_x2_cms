@@ -9,7 +9,7 @@ import "common/health.proto";
 
 package microx2cms.contentproto;
 
-service Content {
+service ContentSrv {
   rpc GetHealth ( common.QueryHealth ) returns ( common.ResponseHealth ) {}
   rpc GetContent ( QueryContent ) returns ( ContentResponse ) {}
 }

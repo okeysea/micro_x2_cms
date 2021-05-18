@@ -14,7 +14,7 @@ type ApiGwSrv struct {
 }
 
 func (s *ApiGwSrv) GetHealth(ctx context.Context, message *common_pb.QueryHealth) (*common_pb.ResponseHealth, error) {
-  fmt.Println("recived: %v", message.Ping)
+  fmt.Println("recived(Health): ", message.Ping)
   return &common_pb.ResponseHealth{
     Pong: message.Ping,
   }, nil
