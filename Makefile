@@ -24,7 +24,10 @@ openapi:
 ################################################################################
 # Backend Services
 ################################################################################
-.PHONY: gobuild clean_gobuild
+.PHONY: gobuild_sh gobuild clean_gobuild
+gobuild_sh:
+	docker-compose -f docker-compose.gocompiler.yml run --rm gocompiler ash
+
 gobuild:
 	docker-compose -f docker-compose.gocompiler.yml run --rm gocompiler make
 

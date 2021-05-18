@@ -5,7 +5,13 @@ node_modules/
 # vendor ignore
 /src/backends/vendor/*
 !/src/backends/vendor/.keep
+/src/backends/vendor_bin/*
+!/src/backends/vendor_bin/.keep
 
 # binary ignore
 /src/backends/bin/*
 !/src/backends/bin/.keep
+
+# ignore secret files
+secret/*
+!secret/.keep
